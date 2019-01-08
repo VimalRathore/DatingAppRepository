@@ -12,5 +12,10 @@ namespace DatingApp.API.Data
         // {
         //     optionsBuilder.UseSqlite("Data Source=DatingApp.db");
         // }
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseSqlServer(@"Server=.\;Database=DatingApp;Trusted_Connection=True;MultipleActiveResultSets=true");
+        // }
     }
 }
