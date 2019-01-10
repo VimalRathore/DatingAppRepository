@@ -56,35 +56,38 @@ namespace DatingApp.API.Controllers
             //  var CreatedUser = await _repo.Register(userToCreate, password);
             // return StatusCode(201);
         }
-        // [HttpPost("login")]
-        // public async Task<IActionResult> Login(UserForLoginDtos userForLoginDtos)
-        // {
-        //     var userFromRepo = await _authRepository.Login(userForLoginDtos.UserName, userForLoginDtos.Password);
-        //     if (userFromRepo == null)
-        //     {
-        //         return Unauthorized();
-        //     }
-        //     var claim = new[]
-        //     {
-        //          new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-        //          new Claim(ClaimTypes.Name, userFromRepo.UserName)
-        //     };
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserForLoginDtos userForLoginDtos)
+        {
+            
+            throw new Exception("Computer says no!");
+            var userFromRepo = await _repo.Login(userForLoginDtos.UserName, userForLoginDtos.Password);
+            if (userFromRepo == null)
+            {
+                return Unauthorized();
+            }
+            var claim = new[]
+            {
+                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+                 new Claim(ClaimTypes.Name, userFromRepo.UserName)
+            };
 
-        //      var key = new SymmetricSecurityKey(Encoding.UTF8
-        //                    .GetBytes(_config.GetSection("AppSettings:Token").Value));
-        //       var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-        //       var tokenDescriptor = new SecurityTokenDescriptor()
-        //       {
-        //           Subject = new ClaimsIdentity(claim),
-        //           Expires = DateTime.Now.AddDays(1),
-        //           SigningCredentials = cred
-        //       };
+             var key = new SymmetricSecurityKey(Encoding.UTF8
+                           .GetBytes(_config.GetSection("AppSettings:Token").Value));
+              var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+              var tokenDescriptor = new SecurityTokenDescriptor()
+              {
+                  Subject = new ClaimsIdentity(claim),
+                  Expires = DateTime.Now.AddDays(1),
+                  SigningCredentials = cred
+              };
 
-        //       var tokenHandler = new JwtSecurityTokenHandler();
-        //       var token = tokenHandler.CreateToken(tokenDescriptor);
-        //       return Ok(new {
-        //              token = tokenHandler.WriteToken(token)});
-        // }
+              var tokenHandler = new JwtSecurityTokenHandler();
+              var token = tokenHandler.CreateToken(tokenDescriptor);
+              return Ok(new {
+                     token = tokenHandler.WriteToken(token)});
+           
+        }
 
     }
 }
