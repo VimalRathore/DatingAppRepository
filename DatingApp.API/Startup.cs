@@ -40,6 +40,7 @@ namespace DatingApp.API
            services.AddDbContext<DataContext>(options => options.UseSqlServer(connection)); 
            // services.AddDbContext<DbContext>(x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
         services.AddCors();
         services.AddScoped<IAuthReository, AuthRepository>();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(Options=>
