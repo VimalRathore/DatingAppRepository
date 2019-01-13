@@ -19,6 +19,8 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using DatingApp.API.Helper;
+using DatingApp.Data;
+using AutoMapper;
 
 namespace DatingApp.API
 {
@@ -39,10 +41,15 @@ namespace DatingApp.API
            var connection = @"Server=.\;Database=DatingApp;Trusted_Connection=True;MultipleActiveResultSets=true";
            services.AddDbContext<DataContext>(options => options.UseSqlServer(connection)); 
            // services.AddDbContext<DbContext>(x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddJsonOptions(opt => {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+            services.AddTransient<Seed>();
         services.AddCors();
+        services.AddAutoMapper();
         services.AddScoped<IAuthReository, AuthRepository>();
+        services.AddScoped<IDataRepository, DataRepository>();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(Options=>
         Options.TokenValidationParameters=new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
@@ -56,7 +63,7 @@ namespace DatingApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seedr)
         {
             if (env.IsDevelopment())
             {
@@ -79,6 +86,7 @@ namespace DatingApp.API
             }
 
             //app.UseHttpsRedirection();
+            seedr.SeedUsers();
             app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
             app.UseAuthentication();
             app.UseMvc();
