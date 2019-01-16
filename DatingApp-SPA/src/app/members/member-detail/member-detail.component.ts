@@ -5,7 +5,7 @@ import { ComponentFactory } from '@angular/core/src/render3';
 import { Users } from 'src/app/_models/Users';
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage } from 'ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 
 @Component({
   selector: 'app-member-detail',
@@ -32,7 +32,7 @@ this.user = data['user'];
         width: '650px',
         height: '650px',
         thumbnailsColumns: 4,
-       // imageAnimation: NgxGalleryAnimation.Slide,
+        imageAnimation: NgxGalleryAnimation.Slide,
         preview: false
     }
   ];

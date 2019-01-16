@@ -1,3 +1,5 @@
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { UserService } from './_Services/user.service';
 
@@ -26,6 +28,7 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { JwtModule } from '@auth0/angular-jwt';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.gaurd';
 
 // tslint:disable-next-line:no-unused-expression
 export function tokenGetter() {
@@ -34,9 +37,9 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent,
-    MemberDetailComponent, ListsComponent, MessagesComponent, MemberListComponent,
+    MemberDetailComponent, ListsComponent, MessagesComponent, MemberEditComponent, MemberListComponent,
      MemberCardComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,NgxGalleryModule, TabsModule.forRoot(),
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgxGalleryModule, TabsModule.forRoot(),
      JwtModule.forRoot(
        {
          config:
@@ -47,7 +50,8 @@ export function tokenGetter() {
          }
        }
      ), BsDropdownModule.forRoot(), RouterModule.forRoot(appRoutes)],
-  providers: [AuthService, ErrorInterceptorProvider, AlertifyService, AuthGuard, UserService, MemberDetailResolver, MemberListResolver],
+  providers: [AuthService, ErrorInterceptorProvider, AlertifyService, MemberEditResolver,
+     AuthGuard, UserService, MemberDetailResolver, MemberListResolver, PreventUnsavedChanges],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
