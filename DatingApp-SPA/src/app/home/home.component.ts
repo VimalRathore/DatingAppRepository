@@ -7,28 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  registerMode = true;
+  registerMode: any;
   values: any;
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.getValues();
+    // this.getValues();
   }
   registerToggle() {
    this.registerMode = true;
   }
 
-  getValues() {
-    this.http.get('http://localhost:5000/api/values').subscribe(response => {
-      this.values = response;
-      console.log(this.values);
-    }, error => {
-      console.log(error);
-    });
-  }
+  // getValues() {
+  //   this.http.get('http://localhost:5000/api/values').subscribe(response => {
+  //     this.values = response;
+  //     console.log(this.values);
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
 
-  cancelRegisterMode(registerMode) {
-this.registerMode = registerMode;
+  cancelRegisterMode(registerMode: boolean) {
+    this.registerMode = registerMode;
   }
 
 }

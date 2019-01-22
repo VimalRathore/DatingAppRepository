@@ -53,11 +53,11 @@ namespace DatingApp.API.Controllers
         //     var user = await _repo.GetUser (id);
 
         //     var userToReturn = _mapper.Map<UserForDetailsDtos>(user);
-
+    
         //     return Ok (userToReturn);
         // }
 
-        [HttpGet]
+        [HttpGet ("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
            // var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);

@@ -29,6 +29,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.gaurd';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 // tslint:disable-next-line:no-unused-expression
 export function tokenGetter() {
@@ -37,9 +39,9 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent,
-    MemberDetailComponent, ListsComponent, MessagesComponent, MemberEditComponent, MemberListComponent,
+    MemberDetailComponent, ListsComponent, PhotoEditorComponent, MessagesComponent, MemberEditComponent, MemberListComponent,
      MemberCardComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgxGalleryModule, TabsModule.forRoot(),
+  imports: [BrowserModule, AppRoutingModule, FileUploadModule, HttpClientModule, FormsModule, NgxGalleryModule, TabsModule.forRoot(),
      JwtModule.forRoot(
        {
          config:
