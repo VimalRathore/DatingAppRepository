@@ -5,9 +5,9 @@ import { UserService } from './_Services/user.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -41,7 +41,9 @@ export function tokenGetter() {
   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent,
     MemberDetailComponent, ListsComponent, PhotoEditorComponent, MessagesComponent, MemberEditComponent, MemberListComponent,
      MemberCardComponent],
-  imports: [BrowserModule, AppRoutingModule, FileUploadModule, HttpClientModule, FormsModule, NgxGalleryModule, TabsModule.forRoot(),
+  imports: [BrowserModule, ReactiveFormsModule, AppRoutingModule, FileUploadModule, HttpClientModule,
+    FormsModule, NgxGalleryModule, TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
      JwtModule.forRoot(
        {
          config:

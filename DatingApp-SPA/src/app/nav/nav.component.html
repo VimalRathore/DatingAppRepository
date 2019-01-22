@@ -20,7 +20,7 @@
          <span>
             <!-- <img src="{pho || '../../../../assets/user.png'}}" alt=""> -->
              <!-- <img src="{{auth.currentUser.photoUrl}}" alt="">  -->
-             <img src="{{photoUrl}}" alt=""> 
+             <img src="{{photoUrl || '../../../../../assets/user.png'}}" alt=""> 
          </span>
         <a class="dropdown-toggle text-light" dropdownToggle>
           Welcome {{auth.decodeToken?.unique_name | titlecase}}

@@ -13,7 +13,7 @@
       <div class="col-sm-4">
         <div class="card">
            <!-- <img class="card-img-top img-thumbnail" src="{{photoUrl || '../../../../../assets/user.png'}}" alt="{{user.knownAs}}"> -->
-           <img class="card-img-top img-thumbnail" src="{{photoUrl}}" alt="{{user.knownAs}}">
+           <img class="card-img-top img-thumbnail" src="{{photoUrl || '../../../../../assets/user.png'}}" alt="{{user.knownAs}}">
            <div class="card-body">
             <div>
               <strong>Location:</strong>
@@ -46,6 +46,7 @@
               <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
                   <h4>Descrption</h4>
                   <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="user.introduction"></textarea>
+                  <textarea name="lookingFor" rows="6" class="form-control" [(ngModel)]="user.lookingFor"></textarea>
                   <h4>Looking For</h4>
                   <textarea name="lookingFor" rows="6" class="form-control" [(ngModel)]="user.lookingFor"></textarea>
                   <h4>Interests</h4>

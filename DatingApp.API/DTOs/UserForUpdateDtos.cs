@@ -2,7 +2,7 @@ namespace DatingApp.API.DTOs
 {
     public class UserForUpdateDtos
     {
-        public string Intrduction { get; set; }
+        public string Introduction { get; set; }
          public string LookingFor { get; set; }
          public string Interests { get; set; } 
         public string City { get; set; } 

@@ -31,6 +31,7 @@ getuser(id): Observable<Users> {
 
 }
 updateUser(id: number, user: Users) {
+  alert(user.introduction);
 return this.http.put(this.baseUrl + 'user/' + id, user);
 }
 setMainPhoto(userId: number, id: number) {
