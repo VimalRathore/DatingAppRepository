@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { NgxGalleryModule } from 'ngx-gallery';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 import { AuthGuard } from './_guards/auth.guard';
 import { AlertifyService } from './_Services/alertify.service';
@@ -38,10 +39,10 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent,
+  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, TimeAgoPipe,
     MemberDetailComponent, ListsComponent, PhotoEditorComponent, MessagesComponent, MemberEditComponent, MemberListComponent,
      MemberCardComponent],
-  imports: [BrowserModule, ReactiveFormsModule, AppRoutingModule, FileUploadModule, HttpClientModule,
+  imports: [BrowserModule, ReactiveFormsModule,  AppRoutingModule, FileUploadModule, HttpClientModule,
     FormsModule, NgxGalleryModule, TabsModule.forRoot(),
     BsDatepickerModule.forRoot(),
      JwtModule.forRoot(
