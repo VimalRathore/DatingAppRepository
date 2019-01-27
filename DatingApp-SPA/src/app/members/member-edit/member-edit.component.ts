@@ -34,7 +34,6 @@ constructor(private route: ActivatedRoute, private alertify: AlertifyService,
   }
 
   updateUser() {
-   alert(this.user);
      this.userService.updateUser(this.authService.decodeToken.nameid, this.user).subscribe(next => {
        this.alertify.success('Profile Succesfully updated');
        this.editForm.reset(this.user);

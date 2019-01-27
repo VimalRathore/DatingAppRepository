@@ -49,8 +49,6 @@ login(model: any) {
 }
 
 register(user: Users) {
-  alert(user);
-  alert(this.baseUrl + 'register');
 return this.http.post(this.baseUrl + 'register', user);
 }
 

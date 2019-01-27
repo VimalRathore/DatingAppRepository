@@ -29,8 +29,6 @@ namespace DatingApp.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //Hi VImal
-
         }
 
         public IConfiguration Configuration { get; }

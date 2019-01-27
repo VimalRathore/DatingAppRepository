@@ -1,8 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AlertifyService } from './alertify.service';
+import { Users } from './../_models/Users';
+import { PaginatedResult } from './../_models/Pagination';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Users } from '../_models/Users';
+import { map } from 'rxjs/operators';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -16,22 +19,46 @@ import { Users } from '../_models/Users';
 export class UserService {
   baseUrl =  environment.apiUrl;
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
-getUsers(): Observable<Users[]> {
-return this.http.get<Users[]>(this.baseUrl + 'user');
-}
-// getUser(id): Observable<User> {
-//   return this.http.get<User>(this.baseUrl + 'user/' + id);
-// }
+ getUsers(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<Users[]>> {
+  const paginatedResult: PaginatedResult<Users[]> = new PaginatedResult<Users[]>();
+
+   let params = new HttpParams();
+
+   if (page != null && itemsPerPage != null) {
+    params = params.append('pageNumber', page);
+    params = params.append('pageSize', itemsPerPage);
+  }
+
+  if (userParams != null) {
+   params = params.append('minAge', userParams.minAge);
+   params = params.append('maxAge', userParams.maxAge);
+   params = params.append('gender', userParams.gender);
+   params = params.append('orderBy', userParams.orderBy);
+  }
+
+  return this.http.get<Users[]>(this.baseUrl + 'user', { observe: 'response', params })
+       .pipe( map(response => {
+       // this.alertify(response.body);
+           paginatedResult.result = response.body;
+           if (response.headers.get('Pagination') != null) {
+           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+         }
+           return paginatedResult;
+         })
+       );
+ }
+
+
+
+
 
 getuser(id): Observable<Users> {
-  alert(this.baseUrl + 'user/' + id);
   return this.http.get<Users>(this.baseUrl + 'user/' + id);
 
 }
 updateUser(id: number, user: Users) {
-  alert(user.introduction);
 return this.http.put(this.baseUrl + 'user/' + id, user);
 }
 setMainPhoto(userId: number, id: number) {
