@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../_Services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   registerMode: any;
   values: any;
-  constructor(private http: HttpClient) { }
+  loggedin: any;
+  constructor(private http: HttpClient, public authService: AuthService) {
+    this.loggedin = this.authService.loggedIn();
+   }
 
   ngOnInit() {
     // this.getValues();
