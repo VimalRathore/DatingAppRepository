@@ -32,6 +32,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.gaurd';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ListResolver } from './_resolvers/list.resolver';
 
 // tslint:disable-next-line:no-unused-expression
 export function tokenGetter() {
@@ -58,7 +59,7 @@ export function tokenGetter() {
        }
      ), BsDropdownModule.forRoot(), RouterModule.forRoot(appRoutes)],
   providers: [AuthService, ErrorInterceptorProvider, AlertifyService, MemberEditResolver,
-     AuthGuard, UserService, MemberDetailResolver, MemberListResolver, PreventUnsavedChanges],
+     AuthGuard, UserService, MemberDetailResolver, MemberListResolver, PreventUnsavedChanges, ListResolver],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

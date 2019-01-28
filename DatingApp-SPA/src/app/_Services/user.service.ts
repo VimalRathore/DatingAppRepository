@@ -7,12 +7,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-// const httpOptions = {
-//   headers: new HttpHeaders({
-//     'Autherization': 'Bearer ' + localStorage.getItem('token')
-//   })
-// };
-
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +15,7 @@ export class UserService {
 
 constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
- getUsers(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<Users[]>> {
+ getUsers(page?, itemsPerPage?, userParams?, likeParams?): Observable<PaginatedResult<Users[]>> {
   const paginatedResult: PaginatedResult<Users[]> = new PaginatedResult<Users[]>();
 
    let params = new HttpParams();
@@ -38,9 +32,17 @@ constructor(private http: HttpClient, private alertify: AlertifyService) { }
    params = params.append('orderBy', userParams.orderBy);
   }
 
+  if (likeParams === 'Likees') {
+    params = params.append('Likees', 'true');
+  }
+
+  if (likeParams === 'Likers') {
+    params = params.append('Likers', 'true');
+  }
+
+
   return this.http.get<Users[]>(this.baseUrl + 'user', { observe: 'response', params })
        .pipe( map(response => {
-       // this.alertify(response.body);
            paginatedResult.result = response.body;
            if (response.headers.get('Pagination') != null) {
            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
@@ -67,5 +69,9 @@ setMainPhoto(userId: number, id: number) {
 
 deletePhoto(userId: number, id: number) {
   return this.http.delete(this.baseUrl + 'user/' + userId + '/photos/' + id);
+}
+
+sendLike( userId: number, recipientId: number) {
+    return this.http.post(this.baseUrl, + 'user/' + userId + '/like/' + recipientId, {});
 }
 }
